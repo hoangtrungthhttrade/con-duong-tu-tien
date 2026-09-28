@@ -96,20 +96,48 @@ export interface Artifact {
   rarity: ArtifactTier;
   mult: number;
   luck: number;
+  /** Sequential milestone (0 = Luyện Khí, 9 = Đăng Tiên). */
+  realmMilestone: number;
 }
 
+export const ARTIFACT_REALM_MILESTONES = [
+  "Luyện Khí",
+  "Trúc Cơ",
+  "Kim Đan",
+  "Nguyên Anh",
+  "Hóa Thần",
+  "Luyện Hư",
+  "Hợp Thể",
+  "Đại Thừa",
+  "Độ Kiếp",
+  "Đăng Tiên",
+] as const;
+
 export const ARTIFACTS: Artifact[] = [
-  { id: "tu_linh_ky", name: "Tụ Linh Kỳ", rarity: "Sơ cấp", mult: 0.15, luck: 0 },
-  { id: "ho_tam_kinh", name: "Hộ Tâm Kính", rarity: "Sơ cấp", mult: 0, luck: 0.03 },
-  { id: "thanh_quang_kiem", name: "Thanh Quang Kiếm", rarity: "Trung cấp", mult: 0.3, luck: 0.05 },
-  { id: "duoc_vuong_lo", name: "Dược Vương Lô", rarity: "Trung cấp", mult: 0.45, luck: 0 },
-  { id: "luong_nghi_ban", name: "Lưỡng Nghi Bàn", rarity: "Cao cấp", mult: 0.6, luck: 0.1 },
-  { id: "hao_thien_thap", name: "Hạo Thiên Tháp", rarity: "Cao cấp", mult: 0.8, luck: 0.12 },
-  { id: "van_hon_phien", name: "Vạn Hồn Phiên", rarity: "Trấn phái", mult: 1.1, luck: 0 },
-  { id: "hu_thien_dinh", name: "Hư Thiên Đỉnh", rarity: "Trấn phái", mult: 1.3, luck: 0.18 },
-  { id: "hon_nguyen_kim_dau", name: "Hỗn Nguyên Kim Đấu", rarity: "Tuyệt học", mult: 1.6, luck: 0.22 },
-  { id: "thong_thien_phu_do", name: "Thông Thiên Phù Đồ", rarity: "Tối cao", mult: 2.0, luck: 0.3 },
+  { id: "tu_linh_ky", name: "Tụ Linh Kỳ", rarity: "Sơ cấp", mult: 0.15, luck: 0, realmMilestone: 0 },
+  { id: "ho_tam_kinh", name: "Hộ Tâm Kính", rarity: "Sơ cấp", mult: 0, luck: 0.03, realmMilestone: 1 },
+  { id: "thanh_quang_kiem", name: "Thanh Quang Kiếm", rarity: "Trung cấp", mult: 0.3, luck: 0.05, realmMilestone: 2 },
+  { id: "duoc_vuong_lo", name: "Dược Vương Lô", rarity: "Trung cấp", mult: 0.45, luck: 0, realmMilestone: 3 },
+  { id: "luong_nghi_ban", name: "Lưỡng Nghi Bàn", rarity: "Cao cấp", mult: 0.6, luck: 0.1, realmMilestone: 4 },
+  { id: "hao_thien_thap", name: "Hạo Thiên Tháp", rarity: "Cao cấp", mult: 0.8, luck: 0.12, realmMilestone: 5 },
+  { id: "van_hon_phien", name: "Vạn Hồn Phiên", rarity: "Trấn phái", mult: 1.1, luck: 0, realmMilestone: 6 },
+  { id: "hu_thien_dinh", name: "Hư Thiên Đỉnh", rarity: "Trấn phái", mult: 1.3, luck: 0.18, realmMilestone: 7 },
+  { id: "hon_nguyen_kim_dau", name: "Hỗn Nguyên Kim Đấu", rarity: "Tuyệt học", mult: 1.6, luck: 0.22, realmMilestone: 8 },
+  { id: "thong_thien_phu_do", name: "Thông Thiên Phù Đồ", rarity: "Tối cao", mult: 2.0, luck: 0.3, realmMilestone: 9 },
 ];
+
+export function artifactMilestoneForStage(stage: number): number {
+  return Math.min(
+    ARTIFACT_REALM_MILESTONES.length - 1,
+    Math.floor((Math.max(0, stage) * ARTIFACT_REALM_MILESTONES.length) / TOTAL_STAGES),
+  );
+}
+
+/** Returns only the next collectible artifact; higher tiers can never be skipped. */
+export function nextAdventureArtifact(owned: string[], stage: number): Artifact | undefined {
+  const next = ARTIFACTS.find((artifact) => !owned.includes(artifact.id));
+  return next && next.realmMilestone <= artifactMilestoneForStage(stage) ? next : undefined;
+}
 
 // ===== Linh Căn (Ngũ Hành) =====
 export type ElementId = "kim" | "moc" | "thuy" | "hoa" | "tho";
@@ -1236,7 +1264,7 @@ const ADVENTURE_EVENT_RECORDS: Encounter[] = [
     stones: -18,
   },
   {
-    text: "Ngươi nhặt được một bó linh thảo sau trận mưa linh khí. [+ 3 Linh Thảo]",
+    text: "Ngươi nh���t được một bó linh thảo sau trận mưa linh khí. [+ 3 Linh Thảo]",
     kind: "good",
     herb: "linhthao",
     herbQty: 3,

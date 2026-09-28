@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  ARTIFACTS,
   GameState,
+  nextAdventureArtifact,
   HerbId,
   LogEntry,
   MANUALS,
@@ -320,15 +320,12 @@ export function useCultivation() {
     let artifacts = s.artifacts;
     let artifactText = "";
     if (reward.artifact) {
-      const pool = ARTIFACTS.filter(
-        (a) => !s.artifacts.includes(a.id) && a.mult <= 0.4 + stage * 0.12,
-      );
-      const got = pool[Math.floor(Math.random() * pool.length)];
+      const got = nextAdventureArtifact(s.artifacts, stage);
       if (got) {
         artifacts = [...artifacts, got.id];
-        artifactText = ` Ngươi nhận được ${got.name} (${got.rarity})!`;
+        artifactText = ` Ngươi nhận được ${got.name} (${got.rarity}) — mốc ${got.realmMilestone + 1}/10!`;
       } else {
-        artifactText = " Tiếc thay bên trong chỉ còn lại bụi trần.";
+        artifactText = " Cơ duyên pháp bảo chưa vượt qua mốc cảnh giới kế tiếp.";
       }
     }
     return {
@@ -418,18 +415,14 @@ export function useCultivation() {
         );
       }
 
-      // Rơi ngẫu nhiên pháp bảo khi phiêu lưu (8%), giới hạn theo cảnh giới hiện tại.
+      // Mỗi lượt phiêu lưu có đúng 5% cơ hội rơi pháp bảo; chỉ nhận món kế tiếp đã mở khóa.
       let artifacts = s.artifacts;
       let log = pushLog(s.log, text, kind);
-      if (Math.random() < 0.08) {
-        const stage = stageIndex(s);
-        const pool = ARTIFACTS.filter(
-          (a) => !s.artifacts.includes(a.id) && a.mult <= 0.3 + stage * 0.14,
-        );
-        const got = pool[Math.floor(Math.random() * pool.length)];
+      if (Math.random() < 0.05) {
+        const got = nextAdventureArtifact(s.artifacts, stageIndex(s));
         if (got) {
           artifacts = [...s.artifacts, got.id];
-          const dropText = `Ngươi tìm được pháp bảo ${got.name} (${got.rarity})!`;
+          const dropText = `Ngươi tìm được pháp bảo ${got.name} (${got.rarity}) — mốc ${got.realmMilestone + 1}/10!`;
           log = pushLog(log, dropText, "epic");
           announce(dropText, "gain", "resource");
         }
