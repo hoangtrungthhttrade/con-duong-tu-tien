@@ -394,6 +394,18 @@ export function artifactOf(id: string | null): Artifact | undefined {
   return ARTIFACTS.find((a) => a.id === id);
 }
 
+/** Direct alchemy success-rate bonus shown for artifacts that enhance luyện đan. */
+export function artifactAlchemyBonusPercent(id: string | null): number {
+  const bonuses: Record<string, number> = {
+    ho_tam_kinh: 5,
+    duoc_vuong_lo: 10,
+    hao_thien_thap: 15,
+    hu_thien_dinh: 20,
+    thong_thien_phu_do: 25,
+  };
+  return id ? (bonuses[id] ?? 0) : 0;
+}
+
 // Hệ số hấp thu linh lực theo phẩm chất Linh Căn.
 // Hạ Phẩm là mốc chuẩn (1.0), mỗi cấp cao hơn +20% so với cấp liền trước.
 export const GRADE_QI_MULT: Record<GradeId, number> = {

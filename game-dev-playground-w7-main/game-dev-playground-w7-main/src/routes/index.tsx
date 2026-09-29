@@ -14,6 +14,7 @@ import {
   PillId,
   REALMS,
   SpiritRoot,
+  artifactAlchemyBonusPercent,
   artifactOf,
   breakthroughChance,
   fmt,
@@ -243,6 +244,11 @@ function Game() {
                       ? `+${Math.round((artifactOf(state.equipped)?.mult ?? 0) * 100)}% tốc độ linh khí • +${Math.round((artifactOf(state.equipped)?.luck ?? 0) * 100)}% tỉ lệ đột phá`
                       : "Đi phiêu lưu để tìm pháp bảo"}
                   </p>
+                  {artifactAlchemyBonusPercent(state.equipped) > 0 && (
+                    <p className="text-xs text-amber-300">
+                      +{artifactAlchemyBonusPercent(state.equipped)}% tỷ lệ luyện đan
+                    </p>
+                  )}
                 </div>
                 <select
                   aria-label="Chọn pháp bảo trang bị"
@@ -476,6 +482,11 @@ function Game() {
                               +{Math.round(a.mult * 100)}% tốc độ tu luyện • +
                               {Math.round(a.luck * 100)}% tỉ lệ đột phá
                             </p>
+                            {artifactAlchemyBonusPercent(a.id) > 0 && (
+                              <p className="mt-1 text-xs text-amber-300">
+                                +{artifactAlchemyBonusPercent(a.id)}% tỷ lệ luyện đan
+                              </p>
+                            )}
                             <p className="mt-1 text-xs text-jade">
                               {state.equipped === a.id ? "Đang trang bị (bấm để tháo)" : "Trang bị"}
                             </p>
