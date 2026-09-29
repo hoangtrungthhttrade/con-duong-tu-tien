@@ -582,8 +582,13 @@ function Game() {
         </section>
       </div>
 
-      <div className="pointer-events-none fixed bottom-3 right-3 z-50 text-xs text-yellow-400 sm:bottom-4 sm:right-4" aria-live="polite">
-        Tương tác: {state.interactionCount}
+      {/* Bộ đếm số lần tương tác (chỉ hiện số) */}
+      <div
+        className="pointer-events-none fixed bottom-2 right-2 z-50 text-xs text-yellow-400 select-none"
+        aria-label="Số lần tương tác"
+        aria-live="polite"
+      >
+        {state.interactionCount}
       </div>
 
       {audio.ready && (
