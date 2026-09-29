@@ -178,6 +178,10 @@ export function useCultivation() {
 
   const dismissNotice = useCallback(() => setFlash(null), []);
 
+  const recordInteraction = useCallback(() => {
+    setState((s) => ({ ...s, interactionCount: s.interactionCount + 1 }));
+  }, []);
+
   const meditate = useCallback(() => {
     setState((s) => ({ ...s, qi: s.qi + qiRate(s, Date.now()) * 1.5 + 2 }));
   }, []);
@@ -540,6 +544,6 @@ export function useCultivation() {
     loaded,
     flash,
     seedReveal,
-    actions: { meditate, breakthrough, brew, usePill, explore, equip, equipSlot: equip, rename, reset, onboard, learnManual, equipManual, resolveAdventure, dismissNotice, dismissSeedReveal },
+    actions: { meditate, breakthrough, brew, usePill, explore, equip, equipSlot: equip, rename, reset, onboard, learnManual, equipManual, resolveAdventure, dismissNotice, dismissSeedReveal, recordInteraction },
   };
 }

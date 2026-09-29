@@ -124,6 +124,16 @@ function Game() {
     if (flash?.sound) audio.playSfx(flash.sound);
   }, [flash?.id, flash?.sound, audio.playSfx]);
 
+  useEffect(() => {
+    const handleInteraction = (event: MouseEvent) => {
+      if (event.target instanceof Element && event.target.closest("button, select, input, textarea, [role='button']")) {
+        actions.recordInteraction();
+      }
+    };
+    document.addEventListener("click", handleInteraction);
+    return () => document.removeEventListener("click", handleInteraction);
+  }, [actions.recordInteraction]);
+
   return (
     <div className="min-h-screen bg-[#0b0f17] text-foreground ink-bg">
       <div className="mx-auto w-full max-w-[1180px] px-2 pb-12 pt-3 sm:px-6 sm:pb-20 sm:pt-8">
@@ -570,6 +580,10 @@ function Game() {
             </div>
           </main>
         </section>
+      </div>
+
+      <div className="pointer-events-none fixed bottom-3 right-3 z-50 text-xs text-yellow-400 sm:bottom-4 sm:right-4" aria-live="polite">
+        Tương tác: {state.interactionCount}
       </div>
 
       {audio.ready && (

@@ -333,6 +333,7 @@ export interface GameState {
   pendingAdventure: import("@/utils/adventureLogic").QuizEventData | null;
   failures: number;
   breakthroughs: number;
+  interactionCount: number;
   log: LogEntry[];
   lastSeen: number;
   /** Thiên Mệnh Đạo Cốt: chuỗi 27 chữ số, 9 đoạn cho 9 đại cảnh giới */
@@ -364,6 +365,7 @@ export function newGame(): GameState {
     pendingAdventure: null,
     failures: 0,
     breakthroughs: 0,
+    interactionCount: 0,
     log: [
       {
         id: 1,
