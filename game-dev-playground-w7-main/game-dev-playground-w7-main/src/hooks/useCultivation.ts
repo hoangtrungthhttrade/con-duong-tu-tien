@@ -61,16 +61,16 @@ function replaceStoneLog(text: string, delta: number, pct: number): string {
 }
 
 const ALCHEMY_ARTIFACT_BONUSES: Record<string, number> = {
-  ho_tam_kinh: 0.2,
-  duoc_vuong_lo: 0.5,
-  hao_thien_thap: 0.7,
-  hu_thien_dinh: 0.9,
-  thong_thien_phu_do: 1.2,
+  ho_tam_kinh: 0.05,
+  duoc_vuong_lo: 0.1,
+  hao_thien_thap: 0.15,
+  hu_thien_dinh: 0.2,
+  thong_thien_phu_do: 0.25,
 };
 
 function alchemySuccessRate(equippedArtifactId: string | null | undefined): number {
   const bonus = equippedArtifactId ? ALCHEMY_ARTIFACT_BONUSES[equippedArtifactId] ?? 0 : 0;
-  return Math.min(1, 0.85 + bonus);
+  return Math.min(1, 0.75 + bonus);
 }
 
 function pushLog(log: LogEntry[], text: string, kind: LogEntry["kind"]): LogEntry[] {
