@@ -8,6 +8,20 @@ interface BreakthroughModalProps {
   root: SpiritRoot | null;
 }
 
+const MAJOR_REALM_VERSES: Record<string, string> = {
+  "Luyện Khí": "Phàm thể sơ khai bước nghịch thiên, một đao chém đứt sợi duyên trần.",
+  "Trúc Cơ": "Đắp nền vững chãi thông tam giới, thấu hiểu huyền cơ cõi thế gian.",
+  "Kim Đan": "Đan thành chín chuyển ôm trời đất, nội uẩn thần quang chiếu vạn trùng.",
+  "Nguyên Anh": "Anh nhi xuất khiếu kinh thiên địa, pháp tướng uy lừng lẫy càn khôn.",
+  "Hóa Thần": "Thần niệm tung hoành ngang dọc cõi, một niệm sinh diệt vạn linh tuân.",
+  "Luyện Hư": "Hư không dung hợp quy chân ngã, vạn trượng hồng trần tựa khói mây.",
+  "Hợp Thể": "Hợp thể càn khôn trong chớp mắt, đảo lộn âm dương nắm thái hư.",
+  "Đại Thừa": "Đại thừa vạn kiếp thân bất diệt, đứng trên thiên đạo ngắm phong vân.",
+  // The final breakthrough is represented by Độ Kiếp in the current realm data.
+  "Độ Kiếp": "Một bước vượt thiên quan, vạn kiếp hóa trường sinh.",
+  "Đăng Tiên": "Một bước vượt thiên quan, vạn kiếp hóa trường sinh.",
+};
+
 function spiritRootClass(root: SpiritRoot) {
   const normalizedElement = String(root.element)
     .trim()
@@ -92,7 +106,7 @@ export function BreakthroughModal({ notice, onClose, root }: BreakthroughModalPr
           <span className="inline-flex rounded-full border border-primary/70 bg-primary/10 px-4 py-1.5 text-[11px] font-semibold tracking-[0.28em]">THIÊN ĐỊA DỊ TƯỢNG</span>
           <p className="mt-5 text-xs uppercase tracking-[0.38em] text-primary/70">Đại đạo khai hoa</p>
           <h2 id="breakthrough-title" className="mt-2 font-serif text-3xl font-bold tracking-wide text-primary sm:text-5xl">ĐỘT PHÁ ĐẠI CẢNH GIỚI</h2>
-          <p className="mx-auto mt-4 max-w-lg font-serif text-base italic leading-relaxed text-primary/80 sm:text-lg">“Một bước vượt thiên quan, vạn kiếp hóa trường sinh.”</p>
+          <p className="mx-auto mt-4 max-w-lg font-serif text-base italic leading-relaxed text-primary/80 sm:text-lg">“{MAJOR_REALM_VERSES[data.realmTitle] ?? MAJOR_REALM_VERSES["Đăng Tiên"]}”</p>
 
           <div className="mt-7 grid gap-3 text-left sm:grid-cols-2">
             <Info label="Đạo hiệu" value={data.name} />
