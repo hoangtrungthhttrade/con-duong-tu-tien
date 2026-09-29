@@ -97,7 +97,7 @@ export function createQuizEvent(stage: number, realmName: string): QuizEventData
   }
   return {
     id: `quiz-${Date.now()}`,
-    title: "Khảo Tâm Ma · Thử Thách Tâm Cảnh",
+    title: "Lạc vào bí cảnh",
     question: question.question,
     answers,
     correctIndex: answers.indexOf(correct),

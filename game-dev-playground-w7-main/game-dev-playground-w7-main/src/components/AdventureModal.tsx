@@ -17,7 +17,7 @@ export const AdventureModal: React.FC<AdventureModalProps> = ({ event, stones, o
       <div className="root-aura w-full max-w-xl rounded-2xl border bg-card p-6 text-card-foreground shadow-2xl shadow-primary/10 sm:p-7" style={auraStyle} role="dialog" aria-modal="true" aria-labelledby="adventure-title">
         <div className="mb-5 flex items-start justify-between gap-4 border-b border-border pb-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.25em] text-primary/80">Thử thách tâm cảnh</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-primary/80">Lạc vào bí cảnh · Mê lộ huyền bí</p>
             <h3 id="adventure-title" className="mt-1 font-serif text-2xl font-semibold text-primary">{event.title}</h3>
           </div>
           <span className="shrink-0 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs text-primary">{event.realmName}</span>
