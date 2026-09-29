@@ -60,6 +60,19 @@ function replaceStoneLog(text: string, delta: number, pct: number): string {
   return `${text.replace(/\[[+-]\s*\d+\s+Linh Thạch(?:\s*\([^\]]+\))?\]/g, "").trim()} ${stoneLog(delta, pct)}`;
 }
 
+const ALCHEMY_ARTIFACT_BONUSES: Record<string, number> = {
+  ho_tam_kinh: 0.2,
+  duoc_vuong_lo: 0.5,
+  hao_thien_thap: 0.7,
+  hu_thien_dinh: 0.9,
+  thong_thien_phu_do: 1.2,
+};
+
+function alchemySuccessRate(equippedArtifactId: string | null | undefined): number {
+  const bonus = equippedArtifactId ? ALCHEMY_ARTIFACT_BONUSES[equippedArtifactId] ?? 0 : 0;
+  return Math.min(1, 0.85 + bonus);
+}
+
 function pushLog(log: LogEntry[], text: string, kind: LogEntry["kind"]): LogEntry[] {
   return [{ id: ++logId, text, kind, time: Date.now() }, ...log].slice(0, 120);
 }
@@ -126,7 +139,8 @@ export function useCultivation() {
           const pid = next.brewing.pill;
           const pill = PILLS.find((p) => p.id === pid);
           if (!pill) return { ...next, brewing: null };
-          const success = Math.random() < 0.85;
+          const alchemyRate = alchemySuccessRate(next.equipped);
+          const success = Math.random() < alchemyRate;
           if (success) {
             setFlash({
               id: ++logId,
