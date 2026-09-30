@@ -527,10 +527,10 @@ const ADVENTURE_EVENT_RECORDS: Encounter[] = [
     qiPct: 0.18,
   },
   {
-    text: "Vườn linh dược nghìn năm hé lộ một luống cỏ non quý giá. [+ 4 Linh Thảo]",
+    text: "Vườn linh dược nghìn năm hé lộ một luống cỏ non quý giá. [+ 5 Linh Thảo]",
     kind: "epic",
     herb: "linhthao",
-    herbQty: 4,
+    herbQty:5,
   },
   {
     text: "Sứ giả tiên môn thử lòng ngươi rồi ban thưởng túi linh thạch. [+ 60 Linh Thạch]",
