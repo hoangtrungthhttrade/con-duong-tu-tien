@@ -43,7 +43,25 @@ function normalizedMajorRealm(realmTitle: string): string {
 
 function majorRealmVerse(realmTitle: string): string {
   const realm = normalizedMajorRealm(realmTitle);
-  return MAJOR_REALM_VERSES[realm] ?? MAJOR_REALM_VERSES["Đăng Tiên"] ?? "";
+  const majorRealms = [
+    "Luyện Khí",
+    "Trúc Cơ",
+    "Kim Đan",
+    "Nguyên Anh",
+    "Hóa Thần",
+    "Luyện Hư",
+    "Hợp Thể",
+    "Đại Thừa",
+    "Độ Kiếp",
+    "Đăng Tiên",
+  ] as const;
+  const realmIndex = majorRealms.indexOf(realm as (typeof majorRealms)[number]);
+
+  // The verse celebrates the realm being transcended, so a breakthrough
+  // from Luyện Khí into Trúc Cơ displays the Luyện Khí verse.
+  const transcendedRealm: string = realmIndex > 0 ? (majorRealms.at(realmIndex - 1) ?? realm) : realm;
+
+  return MAJOR_REALM_VERSES[transcendedRealm] ?? MAJOR_REALM_VERSES[realm] ?? MAJOR_REALM_VERSES["Đăng Tiên"] ?? "";
 }
 
 function majorRealmTier(realmTitle: string): number {
