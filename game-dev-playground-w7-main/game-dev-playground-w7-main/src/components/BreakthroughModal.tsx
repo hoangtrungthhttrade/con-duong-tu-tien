@@ -35,7 +35,10 @@ const MAJOR_REALM_TIERS: Record<string, number> = {
 };
 
 function normalizedMajorRealm(realmTitle: string): string {
-  return realmTitle.trim().replace(/\\s+Kỳ$/, "");
+  return realmTitle
+    .trim()
+    .replace(/\s+Kỳ$/i, "")
+    .replace(/\s+tầng\s+\d+$/i, "");
 }
 
 function majorRealmVerse(realmTitle: string): string {
