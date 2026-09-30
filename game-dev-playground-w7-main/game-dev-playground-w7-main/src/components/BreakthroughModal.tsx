@@ -17,10 +17,15 @@ const MAJOR_REALM_VERSES: Record<string, string> = {
   "Luyện Hư": "Hư không dung hợp quy chân ngã, vạn trượng hồng trần tựa khói mây.",
   "Hợp Thể": "Hợp thể càn khôn trong chớp mắt, đảo lộn âm dương nắm thái hư.",
   "Đại Thừa": "Đại thừa vạn kiếp thân bất diệt, đứng trên thiên đạo ngắm phong vân.",
-  // The final breakthrough is represented by Độ Kiếp in the current realm data.
   "Độ Kiếp": "Một bước vượt thiên quan, vạn kiếp hóa trường sinh.",
   "Đăng Tiên": "Một bước vượt thiên quan, vạn kiếp hóa trường sinh.",
 };
+
+function majorRealmVerse(realmTitle: string): string {
+  // Breakthrough notices use both “Nguyên Anh” and “Nguyên Anh Kỳ” forms.
+  const realm = realmTitle.trim().replace(/\\s+Kỳ$/, "");
+  return MAJOR_REALM_VERSES[realm] ?? MAJOR_REALM_VERSES["Đăng Tiên"];
+}
 
 function spiritRootClass(root: SpiritRoot) {
   const normalizedElement = String(root.element)
@@ -106,7 +111,7 @@ export function BreakthroughModal({ notice, onClose, root }: BreakthroughModalPr
           <span className="inline-flex rounded-full border border-primary/70 bg-primary/10 px-4 py-1.5 text-[11px] font-semibold tracking-[0.28em]">THIÊN ĐỊA DỊ TƯỢNG</span>
           <p className="mt-5 text-xs uppercase tracking-[0.38em] text-primary/70">Đại đạo khai hoa</p>
           <h2 id="breakthrough-title" className="mt-2 font-serif text-3xl font-bold tracking-wide text-primary sm:text-5xl">ĐỘT PHÁ ĐẠI CẢNH GIỚI</h2>
-          <p className="mx-auto mt-4 max-w-lg font-serif text-base italic leading-relaxed text-primary/80 sm:text-lg">“{MAJOR_REALM_VERSES[data.realmTitle] ?? MAJOR_REALM_VERSES["Đăng Tiên"]}”</p>
+          <p className="mx-auto mt-4 max-w-lg font-serif text-base italic leading-relaxed text-primary/80 sm:text-lg">“{majorRealmVerse(data.realmTitle)}”</p>
 
           <div className="mt-7 grid gap-3 text-left sm:grid-cols-2">
             <Info label="Đạo hiệu" value={data.name} />
