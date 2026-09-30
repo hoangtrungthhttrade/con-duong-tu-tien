@@ -896,7 +896,7 @@ export const EVENTS = [
     linhKhi: -15,
   },
   {
-    text: "bị đá rơi trúng đầu khi đi dưới vách núi, ngươi văng xa 10 trượng, gượng dậy di chuyển đến nơi an toàn. [- 42% tu vi]",
+    text: "bị đá rơi trúng đầu văng xa 10 trượng, gượng dậy di chuyển đến nơi an toàn. [- 20% tu vi]",
     type: "penalty",
     linhThach: 0,
     linhKhi: -20,
