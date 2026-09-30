@@ -992,7 +992,7 @@ export const EVENTS = [
     linhKhi: -15,
   },
   {
-    text: "bị Ma Tu quấy phá làm mất tập trung, ngươi trúng tâm thuật ấn của hắn, may mắn có pháp khí hộ thân mới trốn thoát được. [- 35% tu vi]",
+    text: "bị Ma Tu quấy phá làm mất tập trung, trúng tâm thuật ấn của hắn, may mắn có pháp khí hộ thân mới trốn thoát được. [- 35% tu vi]",
     type: "penalty",
     linhThach: 0,
     linhKhi: -35,
