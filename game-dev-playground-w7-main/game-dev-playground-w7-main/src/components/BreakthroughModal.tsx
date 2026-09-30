@@ -21,10 +21,34 @@ const MAJOR_REALM_VERSES: Record<string, string> = {
   "Đăng Tiên": "Một bước vượt thiên quan, vạn kiếp hóa trường sinh.",
 };
 
+const MAJOR_REALM_TIERS: Record<string, number> = {
+  "Luyện Khí": 1,
+  "Trúc Cơ": 2,
+  "Kim Đan": 3,
+  "Nguyên Anh": 4,
+  "Hóa Thần": 5,
+  "Luyện Hư": 6,
+  "Hợp Thể": 7,
+  "Đại Thừa": 8,
+  "Độ Kiếp": 9,
+  "Đăng Tiên": 9,
+};
+
+function normalizedMajorRealm(realmTitle: string): string {
+  return realmTitle.trim().replace(/\\s+Kỳ$/, "");
+}
+
 function majorRealmVerse(realmTitle: string): string {
-  // Breakthrough notices use both “Nguyên Anh” and “Nguyên Anh Kỳ” forms.
-  const realm = realmTitle.trim().replace(/\\s+Kỳ$/, "");
+  const realm = normalizedMajorRealm(realmTitle);
   return MAJOR_REALM_VERSES[realm] ?? MAJOR_REALM_VERSES["Đăng Tiên"];
+}
+
+function majorRealmTier(realmTitle: string): number {
+  return MAJOR_REALM_TIERS[normalizedMajorRealm(realmTitle)] ?? 1;
+}
+
+function majorRealmTheme(tier: number): string {
+  return `breakthrough-tier-${Math.max(1, Math.min(9, tier))}`;
 }
 
 function spiritRootClass(root: SpiritRoot) {
@@ -77,6 +101,9 @@ export function BreakthroughModal({ notice, onClose, root }: BreakthroughModalPr
 
   if (!data) return null;
 
+  const currentRealmTier = data.type === "major" ? majorRealmTier(data.realmTitle) : 1;
+  const realmTheme = majorRealmTheme(currentRealmTier);
+
   if (data.type === "minor") {
     return (
       <div className="fixed inset-0 z-[70] flex items-center justify-center p-4" onClick={onClose} role="presentation">
@@ -99,7 +126,7 @@ export function BreakthroughModal({ notice, onClose, root }: BreakthroughModalPr
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center overflow-y-auto bg-black/85 p-4 backdrop-blur-md" onClick={onClose} role="presentation">
       <div
-        className="breakthrough-modal relative w-full max-w-3xl overflow-hidden rounded-2xl border-2 border-primary bg-black px-5 py-7 text-primary shadow-2xl shadow-primary/30 sm:px-10 sm:py-9"
+        className={`breakthrough-modal ${realmTheme} relative w-full max-w-3xl overflow-hidden rounded-2xl border-2 border-primary bg-black px-5 py-7 text-primary shadow-2xl shadow-primary/30 sm:px-10 sm:py-9`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="breakthrough-title"

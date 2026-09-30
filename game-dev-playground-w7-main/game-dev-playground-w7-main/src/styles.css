@@ -242,8 +242,30 @@
 }
 
 .breakthrough-modal {
+  --breakthrough-accent: rgba(6, 182, 212, 0.4);
+  --breakthrough-glow: rgba(6, 182, 212, 0.28);
   animation: realm-aura 1.35s ease-in-out infinite;
-}
+  background-image: radial-gradient(circle at 50% -20%, var(--breakthrough-glow), transparent 58%);
+  box-shadow: 0 0 24px var(--breakthrough-glow), inset 0 0 28px color-mix(in srgb, var(--breakthrough-glow) 35%, transparent);
+  }
+
+.breakthrough-tier-1 { --breakthrough-accent: rgba(6, 182, 212, 0.4); --breakthrough-glow: rgba(71, 85, 105, 0.22); }
+.breakthrough-tier-2 { --breakthrough-accent: rgba(16, 185, 129, 0.5); --breakthrough-glow: rgba(16, 185, 129, 0.24); animation: breakthrough-jade 2.4s ease-in-out infinite; }
+.breakthrough-tier-3 { --breakthrough-accent: rgba(245, 158, 11, 0.6); --breakthrough-glow: rgba(245, 158, 11, 0.3); }
+.breakthrough-tier-4 { --breakthrough-accent: rgba(234, 179, 8, 0.72); --breakthrough-glow: rgba(234, 179, 8, 0.32); }
+.breakthrough-tier-5 { --breakthrough-accent: rgba(139, 92, 246, 0.6); --breakthrough-glow: rgba(79, 70, 229, 0.3); }
+.breakthrough-tier-6 { --breakthrough-accent: rgba(99, 102, 241, 0.68); --breakthrough-glow: rgba(59, 130, 246, 0.3); background-image: radial-gradient(circle at 20% 30%, rgba(129, 140, 248, 0.18) 0 1px, transparent 2px), radial-gradient(circle at 80% 65%, rgba(167, 139, 250, 0.2) 0 1px, transparent 2px), radial-gradient(circle at 50% -20%, var(--breakthrough-glow), transparent 62%); background-size: 120px 120px, 160px 160px, auto; }
+.breakthrough-tier-7 { --breakthrough-accent: rgba(225, 29, 72, 0.7); --breakthrough-glow: rgba(225, 29, 72, 0.32); animation: breakthrough-divine-pulse 1.8s ease-in-out infinite; }
+.breakthrough-tier-8 { --breakthrough-accent: rgba(234, 179, 8, 0.8); --breakthrough-glow: rgba(250, 204, 21, 0.34); border-image: linear-gradient(110deg, rgba(226, 232, 240, 0.9), var(--breakthrough-accent), rgba(226, 232, 240, 0.9)) 1; }
+.breakthrough-tier-9 { --breakthrough-accent: rgba(236, 72, 153, 0.85); --breakthrough-glow: rgba(168, 85, 247, 0.36); border-image: linear-gradient(110deg, #22d3ee, #a855f7, #facc15, #f43f5e, #22d3ee) 1; background-image: linear-gradient(120deg, rgba(34, 211, 238, 0.1), rgba(168, 85, 247, 0.14), rgba(250, 204, 21, 0.1)); animation: breakthrough-rainbow 4s linear infinite; }
+
+.breakthrough-modal .breakthrough-runes { color: var(--breakthrough-accent); text-shadow: 0 0 12px var(--breakthrough-accent); }
+.breakthrough-modal .font-serif { text-shadow: 0 0 12px var(--breakthrough-accent); }
+
+@keyframes breakthrough-jade { 0%, 100% { box-shadow: 0 0 20px var(--breakthrough-glow), inset 0 0 24px color-mix(in srgb, var(--breakthrough-glow) 35%, transparent); } 50% { box-shadow: 0 0 40px var(--breakthrough-accent), inset 0 0 30px color-mix(in srgb, var(--breakthrough-glow) 55%, transparent); } }
+@keyframes breakthrough-divine-pulse { 0%, 100% { box-shadow: 0 0 24px var(--breakthrough-glow); } 50% { box-shadow: 0 0 48px var(--breakthrough-accent), inset 0 0 22px var(--breakthrough-glow); } }
+@keyframes breakthrough-rainbow { to { filter: hue-rotate(360deg); } }
+
 
 .breakthrough-runes {
   color: oklch(0.82 0.13 85 / 0.38);
