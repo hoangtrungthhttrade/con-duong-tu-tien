@@ -40,7 +40,7 @@ function normalizedMajorRealm(realmTitle: string): string {
 
 function majorRealmVerse(realmTitle: string): string {
   const realm = normalizedMajorRealm(realmTitle);
-  return MAJOR_REALM_VERSES[realm] ?? MAJOR_REALM_VERSES["Đăng Tiên"];
+  return MAJOR_REALM_VERSES[realm] ?? MAJOR_REALM_VERSES["Đăng Tiên"] ?? "";
 }
 
 function majorRealmTier(realmTitle: string): number {
